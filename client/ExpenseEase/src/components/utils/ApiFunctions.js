@@ -7,8 +7,14 @@ const api = axios.create({
 async function homePage(){
 
     console.log("Home API")
-    const response = await api.get("/expense/")
-    return response.data
+    try{
+        const response = await api.get("/expense/home");
+        return response.data
+    }catch(error){
+        console.log("Error fetching data", error)
+        return ''
+    }
+
 }
 
 export default api;

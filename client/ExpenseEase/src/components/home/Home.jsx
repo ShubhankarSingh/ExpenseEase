@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import homePage from "../utils/ApiFunctions"
+import {homePage} from "../utils/ApiFunctions"
 
 const Home = () => {
 
@@ -7,9 +7,9 @@ const Home = () => {
 
     useEffect(()=>{
         homePage().then((data)=>{
-            setVariable(data)
-        })
-    },[])
+            setVariable(data);
+        });
+    },[]);
 
   return (
     <div>
@@ -18,6 +18,6 @@ const Home = () => {
 
     </div>
   )
-}
+};
 
 export default Home

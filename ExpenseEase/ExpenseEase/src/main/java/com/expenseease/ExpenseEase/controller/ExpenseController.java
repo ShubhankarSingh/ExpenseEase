@@ -17,6 +17,5 @@ public class ExpenseController {
     public String home(){
         return "ExpenseEase";
     }
-
 }
 
