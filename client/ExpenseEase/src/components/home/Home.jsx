@@ -16,6 +16,8 @@ const Home = () => {
     
         <h1>Welcome to {variable} - manage your expenses easily 💸💸💸</h1>
 
+        
+
     </div>
   )
 };
