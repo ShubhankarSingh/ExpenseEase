@@ -5,6 +5,7 @@ import './App.css'
 import {Router, Routes, BrowserRouter, Route} from 'react-router-dom'
 import Home from './components/home/Home'
 import Dashboard from './components/home/Dashboard'
+import ExpenseDashBoard from './components/home/ExpenseDashBoard'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/expense-dashboard" element={<ExpenseDashBoard/>}/>
         </Routes>
       </BrowserRouter>
     </main>

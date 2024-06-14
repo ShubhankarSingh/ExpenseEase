@@ -35,7 +35,7 @@ async function getAllExpenses(){
     console.log("Get all Expenses")
 
     try{
-        const response = await api.post("/expense/all-expenses");
+        const response = await api.get("/expense/all-expenses");
         return response.data
 
     }catch(error){
@@ -45,4 +45,4 @@ async function getAllExpenses(){
 }
 
 export default api;
-export { homePage };
+export { homePage, getAllExpenses };
