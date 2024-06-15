@@ -5,6 +5,7 @@ import com.expenseease.ExpenseEase.repository.ExpenseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ExpenseService implements ExpenseServiceImpl{
@@ -28,5 +29,14 @@ public class ExpenseService implements ExpenseServiceImpl{
     @Override
     public List<Expense> getAllExpenses() {
         return expenseRepository.findAll();
+    }
+
+    @Override
+    public void deleteExpense(Long expenseId) {
+        Optional<Expense> theExpense = expenseRepository.findById(expenseId);
+        if(theExpense.isPresent()){
+            expenseRepository.deleteById(expenseId);
+        }
+
     }
 }

@@ -6,7 +6,6 @@ const api = axios.create({
 
 async function homePage(){
 
-    console.log("Home API")
     try{
         const response = await api.get("/expense/home");
         return response.data
@@ -17,7 +16,7 @@ async function homePage(){
 
 }
 
-async function addExpense(){
+async function addExpense(expenseName, amount, expenseDate, description, category){
     console.log("Add Expense")
 
     try{
@@ -31,8 +30,8 @@ async function addExpense(){
     }
 }
 
+// API to fetch all the expenses from the DB
 async function getAllExpenses(){
-    console.log("Get all Expenses")
 
     try{
         const response = await api.get("/expense/all-expenses");
@@ -44,5 +43,17 @@ async function getAllExpenses(){
     }
 }
 
+async function deleteExpense(expenseId){
+
+    console.log("Inside Delete Expense function")
+
+    try{
+        const result = await api.delete(`/expense/delete-expense/${expenseId}`)
+        return result.data
+    }catch(error){
+        console.log("Error deleting expense", error)
+    }
+}
+
 export default api;
-export { homePage, getAllExpenses };
+export { homePage, addExpense, getAllExpenses, deleteExpense};

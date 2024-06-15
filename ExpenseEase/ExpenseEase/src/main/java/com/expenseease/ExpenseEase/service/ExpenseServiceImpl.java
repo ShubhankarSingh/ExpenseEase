@@ -11,5 +11,7 @@ public interface ExpenseServiceImpl {
 
     List<Expense> getAllExpenses();
 
+    void deleteExpense(Long expenseId);
+
 
 }

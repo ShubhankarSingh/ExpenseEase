@@ -3,6 +3,7 @@ package com.expenseease.ExpenseEase.controller;
 
 import com.expenseease.ExpenseEase.model.Expense;
 import com.expenseease.ExpenseEase.service.ExpenseService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,5 +43,13 @@ public class ExpenseController {
 
         return ResponseEntity.ok(expenses);
     }
+
+    @DeleteMapping("/delete-expense/{expenseId}")
+    public ResponseEntity<Void> deleteExpense(@PathVariable Long expenseId){
+        expenseService.deleteExpense(expenseId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    public ResponseEntity<>
 }
 

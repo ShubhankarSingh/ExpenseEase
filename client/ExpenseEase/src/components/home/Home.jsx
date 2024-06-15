@@ -14,9 +14,7 @@ const Home = () => {
   return (
     <div>
     
-        <h1>Welcome to {variable} - manage your expenses easily 💸💸💸</h1>
-
-        
+        <h2>Welcome to {variable} - manage your expenses easily 💸💸💸</h2>
 
     </div>
   )
