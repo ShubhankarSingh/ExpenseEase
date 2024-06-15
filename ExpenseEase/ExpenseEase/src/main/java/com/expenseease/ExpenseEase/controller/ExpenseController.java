@@ -3,10 +3,12 @@ package com.expenseease.ExpenseEase.controller;
 
 import com.expenseease.ExpenseEase.model.Expense;
 import com.expenseease.ExpenseEase.service.ExpenseService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -30,9 +32,12 @@ public class ExpenseController {
     @PostMapping("/add-expense")
     public ResponseEntity<Expense> addNewExpense (@RequestParam("expenseName") String expenseName,
                                                   @RequestParam("amount") Double amount,
-                                                  @RequestParam("description") String description){
+                                                  @RequestParam("expenseDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date expenseDate,
+                                                  @RequestParam("description") String description,
+                                                  @RequestParam("category") int categoryId){
 
-        Expense savedExpense = expenseService.addNewExpense(expenseName, amount, description);
+        System.out.println("Expenses: " + expenseName + " " + expenseDate);
+        Expense savedExpense = expenseService.addNewExpense(expenseName, amount, expenseDate ,description, categoryId);
         return ResponseEntity.ok(savedExpense);
     }
 
@@ -49,7 +54,5 @@ public class ExpenseController {
         expenseService.deleteExpense(expenseId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-    public ResponseEntity<>
 }
 

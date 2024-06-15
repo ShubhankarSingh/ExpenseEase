@@ -56,6 +56,10 @@ button:focus-visible {
   text-align: justify;
 }
 
+form label{
+  text-align: start;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

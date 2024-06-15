@@ -1,9 +1,6 @@
 package com.expenseease.ExpenseEase.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.BatchSize;
 
 import java.util.Date;
@@ -23,6 +20,7 @@ public class Expense {
 
     private int categoryId;
 
+    @Temporal(TemporalType.DATE)
     private Date createdDate;
 
     public Expense (){

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { deleteExpense, getAllExpenses } from '../utils/ApiFunctions'
 import Home from './Home'
+import {Link} from 'react-router-dom'
 
 const ExpenseDashBoard = () => {
 
@@ -33,13 +34,13 @@ const ExpenseDashBoard = () => {
   return (
     <> 
     <Home/>
-     <button className='btn btn-md btn-primary mt-2'>Add Expense</button>
+     <Link to={"/add-expense"} className='btn btn-md btn-primary mt-2 p-2'>Add Expense</Link>
       {isLoading ? 
         (<h1>Loading Expenses...</h1>) : 
         ( 
           <div className="container mt-5">
             <div className="row justify-content-center">
-              <div className="col-md-12"> {/* Changed to col-md-12 for full width */}
+              <div className="col-md-12"> 
                 <table className='table'>
                   <thead>
                     <tr>

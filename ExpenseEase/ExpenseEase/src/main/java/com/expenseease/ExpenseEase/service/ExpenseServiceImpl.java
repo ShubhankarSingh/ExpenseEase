@@ -9,6 +9,8 @@ public interface ExpenseServiceImpl {
 
     Expense addNewExpense(String expenseName, Double amount, String description);
 
+    Expense addNewExpense(String expenseName, Double amount, Date expenseDate, String description, int categoryId);
+
     List<Expense> getAllExpenses();
 
     void deleteExpense(Long expenseId);

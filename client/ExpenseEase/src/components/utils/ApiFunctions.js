@@ -17,12 +17,21 @@ async function homePage(){
 }
 
 async function addExpense(expenseName, amount, expenseDate, description, category){
-    console.log("Add Expense")
+    console.log("Inside Add Expense api call")
+
+    const formData = new FormData()
+    formData.append("expenseName", expenseName)
+    formData.append("amount", amount)
+    formData.append("expenseDate", expenseDate)
+    formData.append("description", description)
+    formData.append("category", category)
+
+    console.log("Form: " + expenseDate)
 
     try{
 
-        const response = await api.post("/expense/add-expense");
-        return response.data
+        const response = await api.post("/expense/add-expense", formData);
+        return response.status === 201;
 
     }catch(error){
         console.log("Error fetching data", error)
