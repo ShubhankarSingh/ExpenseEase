@@ -48,7 +48,36 @@ async function getAllExpenses(){
 
     }catch(error){
         console.log("Error fetching expenses", error)
-        return ''
+    }
+}
+
+
+async function getExpenseById(expenseId){
+    try{
+        const response = await api.get(`/expense/${expenseId}`);
+        return response.data
+
+    }catch(error){
+        console.log("Error fetching expenses", error)
+    }
+}
+
+async function editExpense(expenseId, expenseName, amount, createdDate, description, categoryId){
+
+    console.log("Inside Edit expense API function")
+    const formData = new FormData()
+    formData.append("expenseName", expenseName)
+    formData.append("amount", amount)
+    formData.append("expenseDate", createdDate)
+    formData.append("description", description)
+    formData.append("category", categoryId)
+
+    try{
+        const response = await api.put(`/expense/edit-expense/${expenseId}`, formData)
+        return response;
+
+    }catch(error){
+        console.log("Error updating expense", error)
     }
 }
 
@@ -65,4 +94,4 @@ async function deleteExpense(expenseId){
 }
 
 export default api;
-export { homePage, addExpense, getAllExpenses, deleteExpense};
+export { homePage, addExpense, getAllExpenses, getExpenseById, editExpense, deleteExpense};

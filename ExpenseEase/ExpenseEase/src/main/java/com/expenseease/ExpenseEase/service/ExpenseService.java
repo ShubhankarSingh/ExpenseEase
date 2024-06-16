@@ -1,5 +1,6 @@
 package com.expenseease.ExpenseEase.service;
 
+import com.expenseease.ExpenseEase.exception.ResourceNotFoundException;
 import com.expenseease.ExpenseEase.model.Expense;
 import com.expenseease.ExpenseEase.repository.ExpenseRepository;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,12 @@ public class ExpenseService implements ExpenseServiceImpl{
     }
 
     @Override
+    public Optional<Expense> getExpenseById(Long expenseId) {
+
+        return expenseRepository.findById(expenseId);
+    }
+
+    @Override
     public void deleteExpense(Long expenseId) {
         Optional<Expense> theExpense = expenseRepository.findById(expenseId);
         if(theExpense.isPresent()){
@@ -48,4 +55,23 @@ public class ExpenseService implements ExpenseServiceImpl{
         }
 
     }
+
+    @Override
+    public Expense editExpense(Long expenseId, String expenseName, Double amount, Date expenseDate, String description, int categoryId) {
+        Expense theExpense = expenseRepository.findById(expenseId).orElseThrow(() -> new ResourceNotFoundException("Expense not found"));
+
+        if(expenseName!=null){
+            theExpense.setExpenseName(expenseName);
+        }
+        if(amount != null) theExpense.setAmount(amount);
+        if(expenseDate != null) theExpense.setCreatedDate(expenseDate);
+        if(description != null) theExpense.setDescription(description);
+        if(categoryId != 0) theExpense.setCategoryId(categoryId);
+
+        return expenseRepository.save(theExpense);
+    }
+
+
+
+
 }

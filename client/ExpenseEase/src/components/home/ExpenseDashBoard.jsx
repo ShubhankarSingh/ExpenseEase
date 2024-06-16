@@ -61,7 +61,7 @@ const ExpenseDashBoard = () => {
                         <td>{expense.description}</td>
                         {/* <td>{expense.createdDate}</td> */}
                         <td>
-                            <button className='btn btn-outline-dark btn-md px-3 mx-2'>Edit</button>
+                            <Link to={`/edit-expense/${expense.expenseId}`} className='btn btn-outline-dark btn-md px-3 mx-2' >Edit</Link>
                             <button className='btn btn-danger btn-md px-3' onClick={()=> handleClick(expense.expenseId)}>Delete</button>
                         </td>
                       </tr>

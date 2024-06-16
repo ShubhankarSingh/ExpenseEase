@@ -4,6 +4,7 @@ import com.expenseease.ExpenseEase.model.Expense;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface ExpenseServiceImpl {
 
@@ -13,7 +14,9 @@ public interface ExpenseServiceImpl {
 
     List<Expense> getAllExpenses();
 
+    Optional<Expense> getExpenseById(Long expenseId);
+
     void deleteExpense(Long expenseId);
 
-
+    Expense editExpense(Long expenseId, String expenseName, Double amount, Date expenseDate, String description, int categoryId);
 }

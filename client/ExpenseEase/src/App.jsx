@@ -9,6 +9,7 @@ import Home from './components/home/Home'
 import Dashboard from './components/home/Dashboard'
 import ExpenseDashBoard from './components/home/ExpenseDashBoard'
 import { AddExpense } from './components/home/AddExpense';
+import EditExpense from "./components/home/EditExpense";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="/expense-dashboard" element={<ExpenseDashBoard/>}/>
           <Route path="/add-expense" element={<AddExpense/>}/>
+          <Route path="/edit-expense/:expenseId" element={<EditExpense/>}/>
         </Routes>
       </BrowserRouter>
     </main>
