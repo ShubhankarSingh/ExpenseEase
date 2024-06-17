@@ -1,7 +1,9 @@
 package com.expenseease.ExpenseEase.service;
 
 import com.expenseease.ExpenseEase.exception.ResourceNotFoundException;
+import com.expenseease.ExpenseEase.model.Category;
 import com.expenseease.ExpenseEase.model.Expense;
+import com.expenseease.ExpenseEase.repository.CategoryRepository;
 import com.expenseease.ExpenseEase.repository.ExpenseRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,25 +15,25 @@ import java.util.Optional;
 public class ExpenseService implements ExpenseServiceImpl{
 
     private final ExpenseRepository expenseRepository;
+    private final CategoryRepository categoryRepository;
 
-    public ExpenseService(ExpenseRepository expenseRepository) {
+    public ExpenseService(ExpenseRepository expenseRepository, CategoryRepository categoryRepository) {
         this.expenseRepository = expenseRepository;
+        this.categoryRepository = categoryRepository;
     }
 
 
     @Override
-    public Expense addNewExpense(String expenseName, Double amount, String description) {
-        return null;
-    }
+    public Expense addNewExpense(String expenseName, Double amount, Date expenseDate, String description, String category) {
 
-    @Override
-    public Expense addNewExpense(String expenseName, Double amount, Date expenseDate, String description, int categoryId) {
+        Category theCategory = categoryRepository.findByCategory(category);
+
         Expense expense = new Expense();
         expense.setExpenseName(expenseName);
         expense.setAmount(amount);
         expense.setCreatedDate(expenseDate);
         expense.setDescription(description);
-        expense.setCategoryId(categoryId);
+        expense.setCategory(theCategory);
 
         return expenseRepository.save(expense);
     }
@@ -57,8 +59,10 @@ public class ExpenseService implements ExpenseServiceImpl{
     }
 
     @Override
-    public Expense editExpense(Long expenseId, String expenseName, Double amount, Date expenseDate, String description, int categoryId) {
+    public Expense editExpense(Long expenseId, String expenseName, Double amount, Date expenseDate, String description, String category) {
         Expense theExpense = expenseRepository.findById(expenseId).orElseThrow(() -> new ResourceNotFoundException("Expense not found"));
+
+        Category theCategory = categoryRepository.findByCategory(category);
 
         if(expenseName!=null){
             theExpense.setExpenseName(expenseName);
@@ -66,12 +70,9 @@ public class ExpenseService implements ExpenseServiceImpl{
         if(amount != null) theExpense.setAmount(amount);
         if(expenseDate != null) theExpense.setCreatedDate(expenseDate);
         if(description != null) theExpense.setDescription(description);
-        if(categoryId != 0) theExpense.setCategoryId(categoryId);
+        if(category != null) theExpense.setCategory(theCategory);
 
         return expenseRepository.save(theExpense);
     }
-
-
-
 
 }

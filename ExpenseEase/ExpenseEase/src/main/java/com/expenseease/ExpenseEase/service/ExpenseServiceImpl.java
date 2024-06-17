@@ -8,9 +8,7 @@ import java.util.Optional;
 
 public interface ExpenseServiceImpl {
 
-    Expense addNewExpense(String expenseName, Double amount, String description);
-
-    Expense addNewExpense(String expenseName, Double amount, Date expenseDate, String description, int categoryId);
+    Expense addNewExpense(String expenseName, Double amount, Date expenseDate, String description, String category);
 
     List<Expense> getAllExpenses();
 
@@ -18,5 +16,5 @@ public interface ExpenseServiceImpl {
 
     void deleteExpense(Long expenseId);
 
-    Expense editExpense(Long expenseId, String expenseName, Double amount, Date expenseDate, String description, int categoryId);
+    Expense editExpense(Long expenseId, String expenseName, Double amount, Date expenseDate, String description, String category);
 }

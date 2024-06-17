@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { editExpense, getExpenseById } from "../utils/ApiFunctions";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 const EditExpense = () => {
 
@@ -14,6 +14,7 @@ const EditExpense = () => {
 
       const [expense, setExpense] = useState(initialFormState);
       const {expenseId} = useParams();
+      const navigate = useNavigate();
   
     useEffect(()=>{
 
@@ -35,7 +36,7 @@ const EditExpense = () => {
 
     const handleFormSubmit = async (e) =>{
         console.log("Inside edit form submit")
-        e.preventdefault()
+        e.preventDefault()
         
 
         const date = new Date(expense.createdDate);
@@ -44,12 +45,13 @@ const EditExpense = () => {
         const result = await editExpense(expenseId, expense.expenseName, expense.amount, formattedDate,
                                         expense.description, expense.categoryId)
         if(result === 200){
-            console.log("Updated expense")
+            navigate("/expense-dashboard")
         }
     }
 
   return (
     <>
+    
       <div className="container mt-5">
         <div className="row justify-content-center">
           <div className="col-md-5">
@@ -64,16 +66,16 @@ const EditExpense = () => {
                 <input type="number" name="amount" id="amount" className='form-control fs-5' value={expense.amount} onChange={handleInputChange} />
               </div>
               <div className="mb-3">
-                <label htmlFor="expenseDate" className='form-label fs-5 text-start d-block'>Expense Date</label>
-                <input type="date" name="expenseDate" id="expenseDate" className='form-control fs-5' value={expense.createdDate} onChange={handleInputChange} />
+                <label htmlFor="createdDate" className='form-label fs-5 text-start d-block'>Expense Date</label>
+                <input type="date" name="createdDate" id="createdDate" className='form-control fs-5' value={expense.createdDate} onChange={handleInputChange} />
               </div>
               <div className="mb-3">
                 <label htmlFor="description" className='form-label fs-5 text-start d-block'>Description</label>
                 <input type="text" name="description" id="description" className='form-control fs-5' value={expense.description} onChange={handleInputChange} />
               </div>
               <div className="mb-3">
-                <label htmlFor="category" className='form-label fs-5 text-start d-block'>Category Id</label>
-                <input type="number" name="category" id="category" className='form-control fs-5' value={expense.categoryId} onChange={handleInputChange} />
+                <label htmlFor="categoryId" className='form-label fs-5 text-start d-block'>Category Id</label>
+                <input type="number" name="categoryId" id="categoryId" className='form-control fs-5' value={expense.categoryId} onChange={handleInputChange} />
               </div>
               <div className="d-flex justify-content-start">
                 <button type="submit" className="btn btn-primary mx-2">Update Expense</button>

@@ -35,10 +35,10 @@ public class ExpenseController {
                                                   @RequestParam("amount") Double amount,
                                                   @RequestParam("expenseDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date expenseDate,
                                                   @RequestParam("description") String description,
-                                                  @RequestParam("category") int categoryId){
+                                                  @RequestParam("category") String category){
 
-        System.out.println("Expenses: " + expenseName + " " + expenseDate);
-        Expense savedExpense = expenseService.addNewExpense(expenseName, amount, expenseDate ,description, categoryId);
+
+        Expense savedExpense = expenseService.addNewExpense(expenseName, amount, expenseDate ,description, category);
         return ResponseEntity.ok(savedExpense);
     }
 
@@ -62,10 +62,10 @@ public class ExpenseController {
                                                @RequestParam(required = false) Double amount,
                                                @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date expenseDate,
                                                @RequestParam(required = false) String description,
-                                               @RequestParam(required = false) int categoryId){
-
+                                               @RequestParam(required = false) String category){
+        System.out.println("Expenses: " + expenseName + " " + category);
         Expense updatedExpense = expenseService.editExpense(expenseId, expenseName, amount,
-                                                            expenseDate, description, categoryId);
+                                                            expenseDate, description, category);
 
         return ResponseEntity.ok(updatedExpense);
 

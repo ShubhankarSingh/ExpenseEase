@@ -18,7 +18,9 @@ public class Expense {
 
     private String description;
 
-    private int categoryId;
+    @ManyToOne()
+    @JoinColumn(name="categoryId")
+    private Category category;
 
     @Temporal(TemporalType.DATE)
     private Date createdDate;
@@ -67,12 +69,11 @@ public class Expense {
         this.description = description;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Date getCreatedDate() {

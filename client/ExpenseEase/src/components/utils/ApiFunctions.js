@@ -16,7 +16,7 @@ async function homePage(){
 
 }
 
-async function addExpense(expenseName, amount, expenseDate, description, category){
+async function addExpense(expenseName, amount, expenseDate, description, categoryId){
     console.log("Inside Add Expense api call")
 
     const formData = new FormData()
@@ -24,7 +24,7 @@ async function addExpense(expenseName, amount, expenseDate, description, categor
     formData.append("amount", amount)
     formData.append("expenseDate", expenseDate)
     formData.append("description", description)
-    formData.append("category", category)
+    formData.append("categoryId", categoryId)
 
     console.log("Form: " + expenseDate)
 
@@ -62,6 +62,18 @@ async function getExpenseById(expenseId){
     }
 }
 
+async function getExpenseCategories(){
+    try{
+        const response = await api.get("/categories/all");
+        const categories = response.data.map(categoryObj => categoryObj.category)
+        return categories;
+
+    }catch(error){
+        console.log("Error fetching categories", error.message)
+        return [];
+    }
+}
+
 async function editExpense(expenseId, expenseName, amount, createdDate, description, categoryId){
 
     console.log("Inside Edit expense API function")
@@ -70,11 +82,17 @@ async function editExpense(expenseId, expenseName, amount, createdDate, descript
     formData.append("amount", amount)
     formData.append("expenseDate", createdDate)
     formData.append("description", description)
-    formData.append("category", categoryId)
+    formData.append("categoryId", categoryId)
+
+    console.log("Category Id : " + categoryId)
 
     try{
-        const response = await api.put(`/expense/edit-expense/${expenseId}`, formData)
-        return response;
+        const response = await api.put(`/expense/edit-expense/${expenseId}`, formData,{
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return response.status;
 
     }catch(error){
         console.log("Error updating expense", error)
@@ -94,4 +112,4 @@ async function deleteExpense(expenseId){
 }
 
 export default api;
-export { homePage, addExpense, getAllExpenses, getExpenseById, editExpense, deleteExpense};
+export { homePage, addExpense, getAllExpenses, getExpenseCategories, getExpenseById, editExpense, deleteExpense};
