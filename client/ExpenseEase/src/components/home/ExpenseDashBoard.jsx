@@ -44,22 +44,22 @@ const ExpenseDashBoard = () => {
                 <table className='table'>
                   <thead>
                     <tr>
-                      <th>Id</th>
                       <th>Expense</th>
                       <th>Amount</th>
                       <th>Description</th>
-                      {/* <th>Created Date</th> */}
+                      <th>Created Date</th>
+                      <th>Category</th>
                       <th>Action Item</th>
                     </tr>
                   </thead>
                   <tbody>
                     {expenses.map((expense) => (
                       <tr key={expense.expenseId}>
-                        <td>{expense.expenseId}</td>
                         <td>{expense.expenseName}</td>
                         <td>{expense.amount}</td>
                         <td>{expense.description}</td>
-                        {/* <td>{expense.createdDate}</td> */}
+                        <td>{expense.createdDate}</td>
+                        <td>{expense.category.category}</td>
                         <td>
                             <Link to={`/edit-expense/${expense.expenseId}`} className='btn btn-outline-dark btn-md px-3 mx-2' >Edit</Link>
                             <button className='btn btn-danger btn-md px-3' onClick={()=> handleClick(expense.expenseId)}>Delete</button>

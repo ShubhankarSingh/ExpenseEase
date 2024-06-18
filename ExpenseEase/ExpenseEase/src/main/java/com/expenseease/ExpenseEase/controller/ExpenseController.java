@@ -33,12 +33,12 @@ public class ExpenseController {
     @PostMapping("/add-expense")
     public ResponseEntity<Expense> addNewExpense (@RequestParam("expenseName") String expenseName,
                                                   @RequestParam("amount") Double amount,
-                                                  @RequestParam("expenseDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date expenseDate,
+                                                  @RequestParam("createdDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date createdDate,
                                                   @RequestParam("description") String description,
                                                   @RequestParam("category") String category){
 
-
-        Expense savedExpense = expenseService.addNewExpense(expenseName, amount, expenseDate ,description, category);
+        System.out.println("Expenses: " + expenseName + " " + createdDate);
+        Expense savedExpense = expenseService.addNewExpense(expenseName, amount, createdDate ,description, category);
         return ResponseEntity.ok(savedExpense);
     }
 
@@ -60,12 +60,12 @@ public class ExpenseController {
     public ResponseEntity<Expense> editExpense(@PathVariable Long expenseId,
                                                @RequestParam(required = false) String expenseName,
                                                @RequestParam(required = false) Double amount,
-                                               @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date expenseDate,
+                                               @RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date createdDate,
                                                @RequestParam(required = false) String description,
                                                @RequestParam(required = false) String category){
         System.out.println("Expenses: " + expenseName + " " + category);
         Expense updatedExpense = expenseService.editExpense(expenseId, expenseName, amount,
-                                                            expenseDate, description, category);
+                                                            createdDate, description, category);
 
         return ResponseEntity.ok(updatedExpense);
 

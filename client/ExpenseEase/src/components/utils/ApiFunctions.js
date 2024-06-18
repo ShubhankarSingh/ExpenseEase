@@ -16,34 +16,12 @@ async function homePage(){
 
 }
 
-async function addExpense(expenseName, amount, expenseDate, description, categoryId){
-    console.log("Inside Add Expense api call")
-
-    const formData = new FormData()
-    formData.append("expenseName", expenseName)
-    formData.append("amount", amount)
-    formData.append("expenseDate", expenseDate)
-    formData.append("description", description)
-    formData.append("categoryId", categoryId)
-
-    console.log("Form: " + expenseDate)
-
-    try{
-
-        const response = await api.post("/expense/add-expense", formData);
-        return response.status === 201;
-
-    }catch(error){
-        console.log("Error fetching data", error)
-        return ''
-    }
-}
-
 // API to fetch all the expenses from the DB
 async function getAllExpenses(){
 
     try{
         const response = await api.get("/expense/all-expenses");
+        var createdDate = response.data.map(createdDate => createdDate.createdDate)
         return response.data
 
     }catch(error){
@@ -74,17 +52,38 @@ async function getExpenseCategories(){
     }
 }
 
-async function editExpense(expenseId, expenseName, amount, createdDate, description, categoryId){
+async function addExpense(expenseName, amount, createdDate, description, category){
+    console.log("Inside Add Expense api call")
+
+    const formData = new FormData()
+    formData.append("expenseName", expenseName)
+    formData.append("amount", amount)
+    formData.append("createdDate", createdDate)
+    formData.append("description", description)
+    formData.append("category", category)
+
+    console.log("Form: " + createdDate)
+
+    try{
+
+        const response = await api.post("/expense/add-expense", formData);
+        return response.status === 201;
+
+    }catch(error){
+        console.log("Error fetching data", error)
+        return ''
+    }
+}
+
+async function editExpense(expenseId, expenseName, amount, createdDate, description, category){
 
     console.log("Inside Edit expense API function")
     const formData = new FormData()
     formData.append("expenseName", expenseName)
     formData.append("amount", amount)
-    formData.append("expenseDate", createdDate)
+    formData.append("createdDate", createdDate)
     formData.append("description", description)
-    formData.append("categoryId", categoryId)
-
-    console.log("Category Id : " + categoryId)
+    formData.append("category", category)
 
     try{
         const response = await api.put(`/expense/edit-expense/${expenseId}`, formData,{

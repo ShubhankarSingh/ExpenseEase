@@ -7,7 +7,7 @@ export const AddExpense = () => {
   const initialFormState = {
     expenseName:"",
     amount:"",
-    expenseDate: "",
+    createdDate: "",
     description: "",
     category: ""
   };  
@@ -32,11 +32,14 @@ export const AddExpense = () => {
     event.preventDefault();
     console.log("Inside handleform submit")
 
-    const date = new Date(newExpense.expenseDate);
-    const formattedDate = date.toISOString().split('T')[0];
+    // const date = new Date(newExpense.createdDate);
+    // const formattedDate = date.toISOString().split('T')[0];
+
+    const [year, month, date] = newExpense.createdDate.split('-');
+    const formattedDate = `${date}-${month}-${year}`;
 
     const result = await addExpense(newExpense.expenseName, newExpense.amount, formattedDate,
-                                    newExpense.description, newExpense.categoryId);
+                                    newExpense.description, newExpense.category);
     if(result !== undefined){
         console.log("A new expense was added")
         setNewExpense(initialFormState)
@@ -67,8 +70,8 @@ export const AddExpense = () => {
                 <input type="number" name="amount" id="amount" className='form-control fs-5' value={newExpense.amount} onChange={handleInputChange} />
               </div>
               <div className="mb-3">
-                <label htmlFor="expenseDate" className='form-label fs-5 text-start d-block'>Expense Date</label>
-                <input type="date" name="expenseDate" id="expenseDate" className='form-control fs-5' value={newExpense.expenseDate} onChange={handleInputChange} />
+                <label htmlFor="createdDate" className='form-label fs-5 text-start d-block'>Expense Date</label>
+                <input type="date" name="createdDate" id="createdDate" className='form-control fs-5' value={newExpense.createdDate} onChange={handleInputChange} />
               </div>
               <div className="mb-3">
                 <label htmlFor="description" className='form-label fs-5 text-start d-block'>Description</label>

@@ -24,14 +24,14 @@ public class ExpenseService implements ExpenseServiceImpl{
 
 
     @Override
-    public Expense addNewExpense(String expenseName, Double amount, Date expenseDate, String description, String category) {
+    public Expense addNewExpense(String expenseName, Double amount, Date createdDate, String description, String category) {
 
         Category theCategory = categoryRepository.findByCategory(category);
 
         Expense expense = new Expense();
         expense.setExpenseName(expenseName);
         expense.setAmount(amount);
-        expense.setCreatedDate(expenseDate);
+        expense.setCreatedDate(createdDate);
         expense.setDescription(description);
         expense.setCategory(theCategory);
 
@@ -59,7 +59,7 @@ public class ExpenseService implements ExpenseServiceImpl{
     }
 
     @Override
-    public Expense editExpense(Long expenseId, String expenseName, Double amount, Date expenseDate, String description, String category) {
+    public Expense editExpense(Long expenseId, String expenseName, Double amount, Date createdDate, String description, String category) {
         Expense theExpense = expenseRepository.findById(expenseId).orElseThrow(() -> new ResourceNotFoundException("Expense not found"));
 
         Category theCategory = categoryRepository.findByCategory(category);
@@ -68,7 +68,7 @@ public class ExpenseService implements ExpenseServiceImpl{
             theExpense.setExpenseName(expenseName);
         }
         if(amount != null) theExpense.setAmount(amount);
-        if(expenseDate != null) theExpense.setCreatedDate(expenseDate);
+        if(createdDate != null) theExpense.setCreatedDate(createdDate);
         if(description != null) theExpense.setDescription(description);
         if(category != null) theExpense.setCategory(theCategory);
 

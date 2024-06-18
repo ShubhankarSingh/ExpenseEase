@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { editExpense, getExpenseById } from "../utils/ApiFunctions";
+import { editExpense, getExpenseById, getExpenseCategories } from "../utils/ApiFunctions";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
 const EditExpense = () => {
@@ -9,10 +9,11 @@ const EditExpense = () => {
         amount:"",
         createdDate: "",
         description: "",
-        categoryId: ""
+        category: ""
       };  
 
       const [expense, setExpense] = useState(initialFormState);
+      const[categories, setCategories] = useState([]);
       const {expenseId} = useParams();
       const navigate = useNavigate();
   
@@ -24,7 +25,9 @@ const EditExpense = () => {
             data.createdDate = date.toISOString().split('T')[0];
             setExpense(data);
         })
-
+        getExpenseCategories().then((data)=>{
+          setCategories(data);
+        });
     }, [expenseId])
 
     const handleInputChange = (e) =>{
@@ -38,16 +41,19 @@ const EditExpense = () => {
         console.log("Inside edit form submit")
         e.preventDefault()
         
+        // const date = new Date(expense.createdDate);
+        // const formattedDate = date.toISOString().split('T')[0];
 
-        const date = new Date(expense.createdDate);
-        const formattedDate = date.toISOString().split('T')[0];
+        const [year, month, date] = expense.createdDate.split('-');
+        const formattedDate = `${date}-${month}-${year}`;
 
         const result = await editExpense(expenseId, expense.expenseName, expense.amount, formattedDate,
-                                        expense.description, expense.categoryId)
+                                        expense.description, expense.category)
         if(result === 200){
             navigate("/expense-dashboard")
         }
     }
+
 
   return (
     <>
@@ -74,9 +80,18 @@ const EditExpense = () => {
                 <input type="text" name="description" id="description" className='form-control fs-5' value={expense.description} onChange={handleInputChange} />
               </div>
               <div className="mb-3">
+              <label htmlFor="category" className='form-label fs-5 text-start d-block'>Category</label>
+              <select className="form-select" name="category" id="category" aria-label="Default select example" value={expense.category.category} onChange={handleInputChange} >
+              {/* <option key={expense.category.categoryId} value={expense.category.category} selected>{expense.category.category}</option> */}
+                {categories.map((category)=>(
+                    <option key={category.categoryId} value={category.category}>{category}</option>
+                ))}
+                </select>
+              </div>
+              {/* <div className="mb-3">
                 <label htmlFor="categoryId" className='form-label fs-5 text-start d-block'>Category Id</label>
                 <input type="number" name="categoryId" id="categoryId" className='form-control fs-5' value={expense.categoryId} onChange={handleInputChange} />
-              </div>
+              </div> */}
               <div className="d-flex justify-content-start">
                 <button type="submit" className="btn btn-primary mx-2">Update Expense</button>
                 <Link to={"/expense-dashboard"} className="btn btn-secondary">Cancel</Link>

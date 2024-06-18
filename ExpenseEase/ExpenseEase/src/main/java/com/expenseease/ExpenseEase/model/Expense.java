@@ -2,6 +2,7 @@ package com.expenseease.ExpenseEase.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.BatchSize;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -23,6 +24,7 @@ public class Expense {
     private Category category;
 
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date createdDate;
 
     public Expense (){
