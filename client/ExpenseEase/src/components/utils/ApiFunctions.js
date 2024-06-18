@@ -21,7 +21,6 @@ async function getAllExpenses(){
 
     try{
         const response = await api.get("/expense/all-expenses");
-        var createdDate = response.data.map(createdDate => createdDate.createdDate)
         return response.data
 
     }catch(error){

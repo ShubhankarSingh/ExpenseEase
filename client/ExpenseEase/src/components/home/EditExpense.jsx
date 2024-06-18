@@ -20,10 +20,11 @@ const EditExpense = () => {
     useEffect(()=>{
 
         getExpenseById(expenseId).then((data)=>{
-            console.log(data);
+            console.log("data", data.category.category);
             const date = new Date(data.createdDate);
             data.createdDate = date.toISOString().split('T')[0];
             setExpense(data);
+            expense.category = data.category.category
         })
         getExpenseCategories().then((data)=>{
           setCategories(data);
@@ -41,6 +42,7 @@ const EditExpense = () => {
         console.log("Inside edit form submit")
         e.preventDefault()
         
+
         // const date = new Date(expense.createdDate);
         // const formattedDate = date.toISOString().split('T')[0];
 
@@ -81,10 +83,10 @@ const EditExpense = () => {
               </div>
               <div className="mb-3">
               <label htmlFor="category" className='form-label fs-5 text-start d-block'>Category</label>
-              <select className="form-select" name="category" id="category" aria-label="Default select example" value={expense.category.category} onChange={handleInputChange} >
-              {/* <option key={expense.category.categoryId} value={expense.category.category} selected>{expense.category.category}</option> */}
+              <select className="form-select" name="category" id="category" aria-label="Default select example" value={expense.category} onChange={handleInputChange} >
+              <option key={expense.category.categoryId} value={expense.category.category} selected>{expense.category.category}</option>
                 {categories.map((category)=>(
-                    <option key={category.categoryId} value={category.category}>{category}</option>
+                    <option key={category} value={category}>{category}</option>
                 ))}
                 </select>
               </div>

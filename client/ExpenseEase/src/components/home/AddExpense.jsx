@@ -81,7 +81,7 @@ export const AddExpense = () => {
               <label htmlFor="category" className='form-label fs-5 text-start d-block'>Category</label>
               <select className="form-select" name="category" id="category" aria-label="Default select example" value={newExpense.category} onChange={handleInputChange} >
                 {categories.map((category)=>(
-                    <option key={category.categoryId} value={category.category}>{category}</option>
+                    <option key={category.categoryId} value={category}>{category}</option>
                 ))}
                 </select>
               </div>
