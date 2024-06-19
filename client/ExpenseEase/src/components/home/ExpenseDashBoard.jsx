@@ -15,7 +15,17 @@ const ExpenseDashBoard = () => {
   const fetchAllExpenses = async () =>{
     setIsLoading(true)
     const result = await getAllExpenses()
-    setExpenses(result)
+
+    const updatedExpense = result.map((expense)=>{
+      if(typeof expense.createdDate === 'number'){
+        const date = new Date(expense.createdDate)
+        const formmatedDate = `${String(date.getDate()).padStart(2,'0')}-${String(date.getMonth()+1).padStart(2,'0')}-${date.getFullYear()}`
+        return {...expense, createdDate: formmatedDate}
+      }
+      return expense
+    }) 
+
+    setExpenses(updatedExpense)
     setIsLoading(false)
   }
 

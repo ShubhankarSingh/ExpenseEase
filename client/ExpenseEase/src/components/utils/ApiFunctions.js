@@ -21,6 +21,12 @@ async function getAllExpenses(){
 
     try{
         const response = await api.get("/expense/all-expenses");
+
+        // const timestamp = response.data[0].createdDate;
+        // const date = new Date(timestamp);
+        // const formattedDate = date.toISOString().split('T')[0];
+        // console.log(formattedDate)
+
         return response.data
 
     }catch(error){

@@ -19,6 +19,12 @@ export const AddExpense = () => {
   useEffect(()=>{
     getExpenseCategories().then((data)=>{
         setCategories(data);
+        if(data.length > 0){
+          setNewExpense(prevState =>({
+            ...prevState,
+            category: data[0]
+          }));
+        }
     });
   },[])
 

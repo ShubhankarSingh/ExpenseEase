@@ -24,7 +24,6 @@ const EditExpense = () => {
             const date = new Date(data.createdDate);
             data.createdDate = date.toISOString().split('T')[0];
             setExpense(data);
-            expense.category = data.category.category
         })
         getExpenseCategories().then((data)=>{
           setCategories(data);
@@ -84,7 +83,7 @@ const EditExpense = () => {
               <div className="mb-3">
               <label htmlFor="category" className='form-label fs-5 text-start d-block'>Category</label>
               <select className="form-select" name="category" id="category" aria-label="Default select example" value={expense.category} onChange={handleInputChange} >
-              <option key={expense.category.categoryId} value={expense.category.category} selected>{expense.category.category}</option>
+              {/* <option key={expense.category} value={expense.category}>{expense.category}</option> */}
                 {categories.map((category)=>(
                     <option key={category} value={category}>{category}</option>
                 ))}
