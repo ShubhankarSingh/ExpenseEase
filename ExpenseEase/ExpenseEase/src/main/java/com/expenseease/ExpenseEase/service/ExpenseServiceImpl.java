@@ -16,5 +16,5 @@ public interface ExpenseServiceImpl {
 
     void deleteExpense(Long expenseId);
 
-    Expense editExpense(Long expenseId, String expenseName, Double amount, Date expenseDate, String description, String category);
+    Expense editExpense(Long expenseId, String expenseName, Double amount, Date expenseDate, String description, Long categoryId);
 }

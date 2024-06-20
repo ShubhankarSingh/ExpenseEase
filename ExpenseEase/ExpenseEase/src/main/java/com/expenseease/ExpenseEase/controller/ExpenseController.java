@@ -62,10 +62,10 @@ public class ExpenseController {
                                                @RequestParam(required = false) Double amount,
                                                @RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") Date createdDate,
                                                @RequestParam(required = false) String description,
-                                               @RequestParam(required = false) String category){
-        System.out.println("Expenses: " + expenseName + " " + category);
+                                               @RequestParam(required = false) Long categoryId){
+        System.out.println("Expenses: " + expenseName + " " + categoryId);
         Expense updatedExpense = expenseService.editExpense(expenseId, expenseName, amount,
-                                                            createdDate, description, category);
+                                                            createdDate, description, categoryId);
 
         return ResponseEntity.ok(updatedExpense);
 

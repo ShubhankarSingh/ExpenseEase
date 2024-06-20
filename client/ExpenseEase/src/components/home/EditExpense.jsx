@@ -9,7 +9,7 @@ const EditExpense = () => {
         amount:"",
         createdDate: "",
         description: "",
-        category: ""
+        category: {categoryId: "", category: ""}
       };  
 
       const [expense, setExpense] = useState(initialFormState);
@@ -20,10 +20,10 @@ const EditExpense = () => {
     useEffect(()=>{
 
         getExpenseById(expenseId).then((data)=>{
-            console.log("data", data.category.category);
-            const date = new Date(data.createdDate);
-            data.createdDate = date.toISOString().split('T')[0];
-            setExpense(data);
+          const date = new Date(data.createdDate);
+          const adjustedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+          data.createdDate = adjustedDate.toISOString().split('T')[0];
+          setExpense(data);
         })
         getExpenseCategories().then((data)=>{
           setCategories(data);
@@ -37,16 +37,24 @@ const EditExpense = () => {
 
     }
 
+    // categories.map((cat)=>{
+    //   console.log("cat: ", cat)
+    // })
+
+    const handleCategoryChange = (e) =>{
+        const selectedCategory = categories.find(category => category.category === e.target.value)
+        console.log("SC: ", selectedCategory)
+        setExpense({...expense, category: selectedCategory})
+    }
+
     const handleFormSubmit = async (e) =>{
         console.log("Inside edit form submit")
         e.preventDefault()
         
-
-        // const date = new Date(expense.createdDate);
-        // const formattedDate = date.toISOString().split('T')[0];
-
         const [year, month, date] = expense.createdDate.split('-');
         const formattedDate = `${date}-${month}-${year}`;
+
+        console.log("Expense category: ", expense.category)
 
         const result = await editExpense(expenseId, expense.expenseName, expense.amount, formattedDate,
                                         expense.description, expense.category)
@@ -82,10 +90,10 @@ const EditExpense = () => {
               </div>
               <div className="mb-3">
               <label htmlFor="category" className='form-label fs-5 text-start d-block'>Category</label>
-              <select className="form-select" name="category" id="category" aria-label="Default select example" value={expense.category} onChange={handleInputChange} >
-              {/* <option key={expense.category} value={expense.category}>{expense.category}</option> */}
+              <select className="form-select" name="category" id="category" aria-label="Default select example" value={expense.category.category} onChange={handleCategoryChange} >
+              <option key={expense.category.categoryId} value={expense.category.category}>{expense.category.category}</option>
                 {categories.map((category)=>(
-                    <option key={category} value={category}>{category}</option>
+                    <option key={category.categoryId} value={category.category}>{category.category}</option>
                 ))}
                 </select>
               </div>

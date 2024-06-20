@@ -59,10 +59,10 @@ public class ExpenseService implements ExpenseServiceImpl{
     }
 
     @Override
-    public Expense editExpense(Long expenseId, String expenseName, Double amount, Date createdDate, String description, String category) {
+    public Expense editExpense(Long expenseId, String expenseName, Double amount, Date createdDate, String description, Long categoryId) {
         Expense theExpense = expenseRepository.findById(expenseId).orElseThrow(() -> new ResourceNotFoundException("Expense not found"));
 
-        Category theCategory = categoryRepository.findByCategory(category);
+        Category theCategory = categoryRepository.findByCategoryId(categoryId);
 
         if(expenseName!=null){
             theExpense.setExpenseName(expenseName);
@@ -70,7 +70,7 @@ public class ExpenseService implements ExpenseServiceImpl{
         if(amount != null) theExpense.setAmount(amount);
         if(createdDate != null) theExpense.setCreatedDate(createdDate);
         if(description != null) theExpense.setDescription(description);
-        if(category != null) theExpense.setCategory(theCategory);
+        if(categoryId != null) theExpense.setCategory(theCategory);
 
         return expenseRepository.save(theExpense);
     }

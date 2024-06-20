@@ -48,8 +48,8 @@ async function getExpenseById(expenseId){
 async function getExpenseCategories(){
     try{
         const response = await api.get("/categories/all");
-        const categories = response.data.map(categoryObj => categoryObj.category)
-        return categories;
+        //const categories = response.data.map(categoryObj => categoryObj.category)
+        return response.data;
 
     }catch(error){
         console.log("Error fetching categories", error.message)
@@ -88,8 +88,9 @@ async function editExpense(expenseId, expenseName, amount, createdDate, descript
     formData.append("amount", amount)
     formData.append("createdDate", createdDate)
     formData.append("description", description)
-    formData.append("category", category)
+    formData.append("categoryId", category.categoryId)
 
+    console.log("category: ", category)
     try{
         const response = await api.put(`/expense/edit-expense/${expenseId}`, formData,{
             headers: {
@@ -101,6 +102,7 @@ async function editExpense(expenseId, expenseName, amount, createdDate, descript
     }catch(error){
         console.log("Error updating expense", error)
     }
+    
 }
 
 async function deleteExpense(expenseId){
