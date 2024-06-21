@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ExpenseServiceImpl {
 
-    Expense addNewExpense(String expenseName, Double amount, Date expenseDate, String description, String category);
+    Expense addNewExpense(String expenseName, Double amount, Date expenseDate, String description, Long categoryId);
 
     List<Expense> getAllExpenses();
 

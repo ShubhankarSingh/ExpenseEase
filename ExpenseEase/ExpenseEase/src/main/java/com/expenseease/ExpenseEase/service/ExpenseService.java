@@ -24,9 +24,9 @@ public class ExpenseService implements ExpenseServiceImpl{
 
 
     @Override
-    public Expense addNewExpense(String expenseName, Double amount, Date createdDate, String description, String category) {
+    public Expense addNewExpense(String expenseName, Double amount, Date createdDate, String description, Long categoryId) {
 
-        Category theCategory = categoryRepository.findByCategory(category);
+        Category theCategory = categoryRepository.findByCategoryId(categoryId);
 
         Expense expense = new Expense();
         expense.setExpenseName(expenseName);

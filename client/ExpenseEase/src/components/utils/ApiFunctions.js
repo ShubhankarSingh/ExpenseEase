@@ -65,7 +65,7 @@ async function addExpense(expenseName, amount, createdDate, description, categor
     formData.append("amount", amount)
     formData.append("createdDate", createdDate)
     formData.append("description", description)
-    formData.append("category", category)
+    formData.append("categoryId", category.categoryId)
 
     console.log("Form: " + createdDate)
 

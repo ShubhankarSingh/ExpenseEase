@@ -9,7 +9,7 @@ export const AddExpense = () => {
     amount:"",
     createdDate: "",
     description: "",
-    category: ""
+    category: {categoryId: "", category: ""}
   };  
 
   const [newExpense, setNewExpense] = useState(initialFormState)
@@ -18,6 +18,8 @@ export const AddExpense = () => {
 
   useEffect(()=>{
     getExpenseCategories().then((data)=>{
+        // console.log("add data: ", data)
+        // const allCategories = data.map(categoryObj => categoryObj.category)
         setCategories(data);
         if(data.length > 0){
           setNewExpense(prevState =>({
@@ -29,18 +31,17 @@ export const AddExpense = () => {
   },[])
 
   const handleInputChange = (e) =>{
-
     const {name, value} = e.target;
     setNewExpense({...newExpense, [name]:value})
   }  
 
+  const handleCategoryChange = (e) =>{
+    const selectedCategory = categories.find(category => category.category === e.target.value);
+    setNewExpense({...newExpense, category: selectedCategory })
+  }
+
   const handleFormSubmit = async (event) =>{
     event.preventDefault();
-    console.log("Inside handleform submit")
-
-    // const date = new Date(newExpense.createdDate);
-    // const formattedDate = date.toISOString().split('T')[0];
-
     const [year, month, date] = newExpense.createdDate.split('-');
     const formattedDate = `${date}-${month}-${year}`;
 
@@ -56,9 +57,9 @@ export const AddExpense = () => {
     }
   }
 
-  categories.map((category)=>{
-    console.log(category);
-  })
+  // categories.map((category)=>{
+  //   console.log("All: ", category);
+  // })
 
   return (
     <>
@@ -85,9 +86,9 @@ export const AddExpense = () => {
               </div>
               <div className="mb-3">
               <label htmlFor="category" className='form-label fs-5 text-start d-block'>Category</label>
-              <select className="form-select" name="category" id="category" aria-label="Default select example" value={newExpense.category} onChange={handleInputChange} >
+              <select className="form-select" name="category" id="category" aria-label="Default select example" value={newExpense.category.category} onChange={handleCategoryChange} >
                 {categories.map((category)=>(
-                    <option key={category.categoryId} value={category}>{category}</option>
+                    <option key={category.categoryId} value={category.category}>{category.category}</option>
                 ))}
                 </select>
               </div>
