@@ -10,6 +10,7 @@ import Dashboard from './components/home/Dashboard'
 import ExpenseDashBoard from './components/home/ExpenseDashBoard'
 import { AddExpense } from './components/home/AddExpense';
 import EditExpense from "./components/home/EditExpense";
+import { ExpenseChart } from "./components/home/ExpenseChart";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/expense-dashboard" element={<ExpenseDashBoard/>}/>
           <Route path="/add-expense" element={<AddExpense/>}/>
           <Route path="/edit-expense/:expenseId" element={<EditExpense/>}/>
+          <Route path="/expense-chart" element={<ExpenseChart/>}/>
         </Routes>
       </BrowserRouter>
     </main>

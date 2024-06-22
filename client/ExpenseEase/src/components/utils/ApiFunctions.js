@@ -26,7 +26,6 @@ async function getAllExpenses(){
         // const date = new Date(timestamp);
         // const formattedDate = date.toISOString().split('T')[0];
         // console.log(formattedDate)
-
         return response.data
 
     }catch(error){

@@ -37,10 +37,6 @@ const EditExpense = () => {
 
     }
 
-    // categories.map((cat)=>{
-    //   console.log("cat: ", cat)
-    // })
-
     const handleCategoryChange = (e) =>{
         const selectedCategory = categories.find(category => category.category === e.target.value)
         console.log("SC: ", selectedCategory)
