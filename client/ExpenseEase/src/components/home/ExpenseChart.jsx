@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-import { getAllExpenses } from "../utils/ApiFunctions"
-import { ExpenseBarChart } from "./ExpenseBarChart"
-
+import { getAllExpenses } from "../utils/ApiFunctions";
+import { ExpenseBarChart } from "./ExpenseBarChart";
 
 Chart.register(CategoryScale);
 
 export const ExpenseChart = () => {
-
-    const [data, setData] = useState([])
+    const [data, setData] = useState([]);
 
     useEffect(() => {
         // Function to fetch all expenses
         const fetchAllExpenses = async () => {
             try {
-                
                 const apiResponse = await getAllExpenses();
 
                 // Transforming the API response to match the chart data structure
@@ -34,48 +31,52 @@ export const ExpenseChart = () => {
         fetchAllExpenses();
     }, []); 
 
-    
-    // useEffect(()=>{
-    //     setChartData({
-    //         labels: data.map((data) => data.category.category),
-    //         datasets: [
-    //             {
-    //                 label: "Expense Chart",
-    //                 data: data.map((data)=> data.amount),
-    //                 borderWidth: 2
-    //             }
-    //         ] 
-    //     });
-    // },[data]);
+    useEffect(() => {
+        const map = new Map();
+
+        data.forEach(({ amount, category: { categoryId, category } }) => {
+            if (map.has(categoryId)) {
+                map.get(categoryId).amount += amount;
+            } else {
+                map.set(categoryId, { categoryId, category, amount });
+            }
+        });
+
+        var result = Array.from(map.values());
+        result.sort((a,b) => b.amount - a.amount)  //sort the result by amount
+        result = result.slice(0,5)     // slice the array to display only top 5 expenses
+        const labels = result.map((data) => data.category);
+        const amount = result.map((data) => data.amount);
+
+        setChartData({
+            labels: labels,
+            datasets: [
+                {
+                    label: "Expense Chart",
+                    data: amount,
+                    backgroundColor: ["red", "green", "blue", "orange", "yellow"],
+                    borderWidth: 2
+                }
+            ]
+        });
+
+    }, [data]); // Add data as a dependency to run this effect whenever data changes
 
     const [chartData, setChartData] = useState({
-        labels: ['Transportation', 'Food', 'Food', 'Travel', 'Rent', 'Transportation', 'Groceries', 'Clothing'],
+        labels: [],
         datasets: [
             {
                 label: "Expense Chart",
-                data: [78, 450, 3498, 8500, 12500, 500, 665, 2400],
-                backgroundColor: ["red", "green","blue","orange","brown","yellow","black","pink"],
+                data: [],
+                backgroundColor: ["red", "green", "blue", "orange", "brown", "yellow"],
                 borderWidth: 2
             }
         ]
     });
 
-    // const labels = data.map((data) => data.amount)
-
-    console.log(chartData.labels)
-
     return (
         <div>
-            {/* <ul>
-                {data.map((data, index) => (
-                    <li key={index}>
-                        <p>Category: {data.category.category}</p>
-                        <p>Amount: {data.amount}</p>
-                    </li>
-                ))}
-            </ul> */}
-        
             <ExpenseBarChart chartData={chartData}/>
         </div>
-    )
-}
+    );
+};
