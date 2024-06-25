@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <div>
     
-        <h2>Welcome to {variable} - manage your expenses easily 💸💸💸</h2>
+        <h2 className="mt-5">Welcome to {variable} - manage your expenses easily 💸💸💸</h2>
 
     </div>
   )

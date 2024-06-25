@@ -11,6 +11,7 @@ import ExpenseDashBoard from './components/home/ExpenseDashBoard'
 import { AddExpense } from './components/home/AddExpense';
 import EditExpense from "./components/home/EditExpense";
 import { ExpenseChart } from "./components/home/ExpenseChart";
+import Navbar from "./components/layout/Navbar";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
   return (
     <main>
       <BrowserRouter>
+      <Navbar/>
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>

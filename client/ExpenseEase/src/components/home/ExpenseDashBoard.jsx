@@ -43,14 +43,18 @@ const ExpenseDashBoard = () => {
 
   return (
     <> 
-    <Home/>
-     <Link to={"/add-expense"} className='btn btn-md btn-primary mt-2 p-2'>Add Expense</Link>
+      <div className="container mt-5">
+      <div className="d-flex justify-content-start mt-5">
+     <Link to={"/add-expense"} className='btn btn-md btn-primary m-2 p-2 rounded-0'>Add Expense</Link>
+     <Link to={"/expense-chart"} className='btn btn-md btn-success m-2 p-2 rounded-0'>Expense Report</Link>
+     </div>
+      </div>
       {isLoading ? 
         (<h1>Loading Expenses...</h1>) : 
         ( 
-          <div className="container mt-5">
+          <div className="container mt-2">
             <div className="row justify-content-center">
-              <div className="col-md-12"> 
+              <div className="col-12"> 
                 <table className='table'>
                   <thead>
                     <tr>
@@ -71,8 +75,8 @@ const ExpenseDashBoard = () => {
                         <td>{expense.createdDate}</td>
                         <td>{expense.category.category}</td>
                         <td>
-                            <Link to={`/edit-expense/${expense.expenseId}`} className='btn btn-outline-dark btn-md px-3 mx-2' >Edit</Link>
-                            <button className='btn btn-danger btn-md px-3' onClick={()=> handleClick(expense.expenseId)}>Delete</button>
+                            <Link to={`/edit-expense/${expense.expenseId}`} className='btn btn-outline-dark btn-md px-3 mx-2 rounded-0' >Edit</Link>
+                            <button className='btn btn-danger btn-md px-3 rounded-0' onClick={()=> handleClick(expense.expenseId)}>Delete</button>
                         </td>
                       </tr>
                     ))}
