@@ -7,6 +7,7 @@ const ExpenseDashBoard = () => {
 
   const [expenses, setExpenses] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [filteredRoom, setFilteredRoom] = useState([])
 
   useEffect(()=>{
     fetchAllExpenses();

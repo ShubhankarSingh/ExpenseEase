@@ -55,7 +55,8 @@ export const ExpenseChart = () => {
                     label: "Expense Chart",
                     data: amount,
                     backgroundColor: ["red", "green", "blue", "orange", "yellow"],
-                    borderWidth: 2
+                    borderWidth: 2,
+                    barThickness: 100,
                 }
             ]
         });

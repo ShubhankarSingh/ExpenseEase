@@ -43,6 +43,11 @@ public class ExpenseService implements ExpenseServiceImpl{
         return expenseRepository.findAll();
     }
 
+
+    public List<Expense> getExpensesByMonth(int month)
+    {
+        return expenseRepository.findAllExpensesByMonth(month);
+    }
     @Override
     public Optional<Expense> getExpenseById(Long expenseId) {
 
@@ -74,5 +79,7 @@ public class ExpenseService implements ExpenseServiceImpl{
 
         return expenseRepository.save(theExpense);
     }
+
+
 
 }

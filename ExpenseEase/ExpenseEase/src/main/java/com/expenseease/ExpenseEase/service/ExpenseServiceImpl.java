@@ -12,6 +12,8 @@ public interface ExpenseServiceImpl {
 
     List<Expense> getAllExpenses();
 
+    List<Expense> getExpensesByMonth(int month);
+
     Optional<Expense> getExpenseById(Long expenseId);
 
     void deleteExpense(Long expenseId);
