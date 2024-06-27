@@ -33,7 +33,18 @@ async function getAllExpenses(){
     }
 }
 
+// API to fetch all the expenses by month from the DB 
+async function getExpensesByMonth(month){
 
+    try{
+        const response = await api.get(`/expense/all-expenses/${month}`)
+        return response.data
+    }catch(error){
+        console.log("Error fetching expenses", error)
+    }
+}
+
+// API to fetch Expense by id
 async function getExpenseById(expenseId){
     try{
         const response = await api.get(`/expense/${expenseId}`);
@@ -117,4 +128,4 @@ async function deleteExpense(expenseId){
 }
 
 export default api;
-export { homePage, addExpense, getAllExpenses, getExpenseCategories, getExpenseById, editExpense, deleteExpense};
+export { homePage, addExpense, getAllExpenses, getExpensesByMonth, getExpenseCategories, getExpenseById, editExpense, deleteExpense};

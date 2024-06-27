@@ -50,7 +50,7 @@ export const AddExpense = () => {
     if(result !== undefined){
         console.log("A new expense was added")
         setNewExpense(initialFormState)
-        navigate("/expense-dashboard")
+        navigate("/all-expenses")
 
     }else{
         console.log("Error adding expense")

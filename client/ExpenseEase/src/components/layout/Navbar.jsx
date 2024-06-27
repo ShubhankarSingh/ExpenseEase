@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const Navbar = () => {
@@ -30,7 +29,7 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarScroll">
 					<ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
 						<li className="nav-item">
-							<Link className="nav-link" aria-current="page" to={"/expense-dashboard"}>
+							<Link className="nav-link" aria-current="page" to={"/all-expenses"}>
 								My Expenses
 							</Link>
 						</li>
