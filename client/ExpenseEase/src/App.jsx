@@ -29,7 +29,7 @@ function App() {
           <Route path="/all-expenses" element={<DisplayExpenses/>}/>
           <Route path="/add-expense" element={<AddExpense/>}/>
           <Route path="/edit-expense/:expenseId" element={<EditExpense/>}/>
-          <Route path="/expense-chart" element={<ExpenseChart/>}/>
+          <Route path="/expense-chart/:month" element={<ExpenseChart/>}/>
         </Routes>
       </BrowserRouter>
     </main>

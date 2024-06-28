@@ -6,17 +6,17 @@ export const DisplayExpenses = () => {
 
     const[expenses, setExpenses] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const[month, setMonth] = useState("");
+    const[month, setMonth] = useState("0");
 
     useEffect(()=>{
         if(month != 0){
-            fetchAllExpensesByMonth();
+            fetchAllExpensesByMonth(month);
         }else{
             fetchAllExpenses();
         }
     },[month])
 
-    const fetchAllExpensesByMonth = async()=>{
+    const fetchAllExpensesByMonth = async(month)=>{
         setIsLoading(true)
         const result = await getExpensesByMonth(month)
                     
@@ -77,7 +77,7 @@ export const DisplayExpenses = () => {
             <div className="d-flex justify-content-between align-items-center mt-5">
                 <div>
                     <Link to={"/add-expense"} className='btn btn-md btn-primary m-2 p-2 rounded-0'>Add Expense</Link>
-                    <Link to={"/expense-chart"} className='btn btn-md btn-success m-2 p-2 rounded-0'>Expense Report</Link>
+                    <Link to={`/expense-chart/${month}`} className='btn btn-md btn-success m-2 p-2 rounded-0'>Expense Report</Link>
                 </div>
                 <div className="d-flex align-items-center">
                     <form className="d-flex align-items-center">

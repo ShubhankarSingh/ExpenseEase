@@ -1,35 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-import { getAllExpenses } from "../utils/ApiFunctions";
+import { getAllExpenses, getExpensesByMonth } from "../utils/ApiFunctions";
 import { ExpenseBarChart } from "./ExpenseBarChart";
+import { useParams } from "react-router-dom";
 
 Chart.register(CategoryScale);
 
 export const ExpenseChart = () => {
     const [data, setData] = useState([]);
+    const {month} = useParams();
 
     useEffect(() => {
-        // Function to fetch all expenses
-        const fetchAllExpenses = async () => {
-            try {
-                const apiResponse = await getAllExpenses();
+        if(month != 0){
+            fetchAllExpensesByMonth(month);
+        }else{
+            fetchAllExpenses();
+        }
+    }, [month]); 
 
-                // Transforming the API response to match the chart data structure
-                const transformedData = apiResponse.map((expense) => ({
-                    category: expense.category,
-                    amount: expense.amount
-                }));
+    // Function to fetch all expenses
+    const fetchAllExpenses = async () => {
+        try {
+            const apiResponse = await getAllExpenses();
 
-                // Converting Object data to Array
-                setData(Object.values(transformedData));
-            } catch (error) {
-                console.error('Error fetching expenses:', error);
-            }
-        };
+            // Transforming the API response to match the chart data structure
+            const transformedData = apiResponse.map((expense) => ({
+                category: expense.category,
+                amount: expense.amount
+            }));
 
-        fetchAllExpenses();
-    }, []); 
+            // Converting Object data to Array
+            setData(Object.values(transformedData));
+        } catch (error) {
+            console.error('Error fetching expenses:', error);
+        }
+    };
+
+    const fetchAllExpensesByMonth = async(month)=>{
+        try {
+            const apiResponse = await getExpensesByMonth(month);
+
+            // Transforming the API response to match the chart data structure
+            const transformedData = apiResponse.map((expense) => ({
+                category: expense.category,
+                amount: expense.amount
+            }));
+
+            // Converting Object data to Array
+            setData(Object.values(transformedData));
+        } catch (error) {
+            console.error('Error fetching expenses:', error);
+        }
+    }
 
     useEffect(() => {
         const map = new Map();
