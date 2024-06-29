@@ -7,6 +7,28 @@ export const DisplayExpenses = () => {
     const[expenses, setExpenses] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const[month, setMonth] = useState("0");
+    const [months, setMonths] = useState([]);
+
+    useEffect(()=>{
+        const currentMonth = new Date().getMonth() + 1; 
+        const monthOptions = [
+            { value: 0, name: "This Year" },
+            { value: 1, name: "January" },
+            { value: 2, name: "February" },
+            { value: 3, name: "March" },
+            { value: 4, name: "April" },
+            { value: 5, name: "May" },
+            { value: 6, name: "June" },
+            { value: 7, name: "July" },
+            { value: 8, name: "August" },
+            { value: 9, name: "September" },
+            { value: 10, name: "October" },
+            { value: 11, name: "November" },
+            { value: 12, name: "December" }
+        ];
+
+        setMonths(monthOptions.filter(option => option.value ===0 || option.value <= currentMonth))
+    }, []);
 
     useEffect(()=>{
         if(month != 0){
@@ -83,19 +105,9 @@ export const DisplayExpenses = () => {
                     <form className="d-flex align-items-center">
                         <label htmlFor="month" className='form-label fs-5 text-start me-3'>Select</label>
                         <select className="form-select custom-select" size={1} name="month" id="month" onChange={handleChange} value={month}>
-                            <option value="0">This Year</option>
-                            <option value="1">January</option>
-                            <option value="2">February</option>
-                            <option value="3">March</option>
-                            <option value="4">April</option>
-                            <option value="5">May</option>
-                            <option value="6">June</option>
-                            <option value="7">July</option>
-                            <option value="8">August</option>
-                            <option value="9">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
+                            {months.map((month) => (
+                               <option key={month.value} value={month.value}>{month.name}</option>
+                            ))}
                         </select>
                     </form>
                 </div>
